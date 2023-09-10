@@ -52,6 +52,55 @@ fn main() {
     };
 
     println!("{}", difference_to_multiple_of_17);
+
+    // You can label loops to provide finer control over breaks and continues:
+    let mut count: i32 = 0;
+    'counting_up: loop {
+        println!("count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up; // forces a break in the outer loop
+            }
+            remaining -= 1;
+        }
+        count += 1;
+    }
+    println!("End count = {count}");
+
+    // While loops
+    let mut outter_idx: i32 = 0;
+    let mut inner_idx: i32 = 0;
+    'outter_loop: loop {
+        println!("Outter loop {outter_idx}");
+        outter_idx += 1;
+
+        while inner_idx < 5 {
+            println!("Inner while {inner_idx}");
+            inner_idx += 1;
+            if outter_idx == 3 {
+                break 'outter_loop;
+            }
+        }
+        inner_idx = 0;
+    }
+
+    println!("Broke while loop demo early");
+
+    // For loops are a lot more precise in controlling
+    // overall iteration and generally better for
+    // avoiding panics when iterating over a collection
+    let arr: [i32; 10] = [0; 10];
+
+    for index in (0..input) {
+        let _element = arr[index as usize];
+        println!("Safely accessed the {}th element of an array from a for loop", index);
+    }
 }
 
 fn countdown_divisible(x: i32) {
