@@ -110,6 +110,8 @@ fn main() {
     let mut v: Vec<i32> = vec![4, 5, 6];
     let num: &mut i32 = &mut v[2];
 
+    // This isn't allowed, because v has lost Read, Write, and Ownership rights
+    // after
     // println!("{}, {}, {}", v[0], v[1], v[2]);
 
     *num = 0;
