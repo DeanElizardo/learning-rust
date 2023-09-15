@@ -32,4 +32,59 @@ fn main() {
     println!("{}", slice_1);
     println!("{}", slice_2);
     println!("{}", slice_3);
+
+    let word_1: &str = frst_wrd(&s);
+    let word_2: &str = scnd_wrd(&s);
+
+    // THIS is not legal, because the references (slices) returned from the calls
+    // to frst_wrd and scnd_wrd are still live
+    // s.clear();
+
+    println!("First word from slicing: {}", word_1);
+    println!("Second word from slicing: {}", word_2);
+}
+
+
+fn frst_wrd(input: &String) -> &str {
+    let bytes: &[u8] = input.as_bytes();
+
+    for (i, &element) in bytes.iter().enumerate() {
+        if element == b' ' {
+            return &input[..i];
+        }
+    }
+
+    &input[..]
+}
+
+fn scnd_wrd(input: &String) -> &str {
+    let bytes: &[u8] = input.as_bytes();
+    let mut start_idx: usize = 0;
+    let mut stop_idx: usize = 0;
+
+    for (i, &element) in bytes.iter().enumerate() {
+        start_idx = i;
+        if element == b' ' {
+            break;
+        }
+    }
+
+    if start_idx == bytes.len() {
+        return &input[..];
+    }
+
+    start_idx += 1;
+    for (i, &element) in bytes.iter().enumerate() {
+        stop_idx = i;
+
+        if stop_idx > start_idx && element == b' ' {
+            break;
+        }
+    }
+
+    if start_idx < stop_idx {
+        return &input[start_idx..stop_idx];
+    }
+
+    &input[..]
 }
