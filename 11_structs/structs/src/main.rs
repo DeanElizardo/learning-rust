@@ -7,6 +7,11 @@ struct User {
 }
 
 fn main() {
+    /*
+     **************************************************************************
+     *                        THE BASICS OF STRUCTS                           *
+     **************************************************************************
+     */
     // Now we instantiate a struct
     let mut user1 = User {
         email: String::from("someuser@example.com"),
@@ -49,6 +54,37 @@ fn main() {
 
     give_user_details(&user1);
     give_user_details(&user4);
+
+
+    /*
+    ***************************************************************************
+    *          TUPLE STRUCTS WITHOUT NAMED FIELDS FOR NEW TYPES               *
+    ***************************************************************************
+     */
+
+    // A tuple struct have the added meaning of a struct name, but don't contain
+    // fields. We just give the types in the struct definition. Tuple structs
+    // are handy for being able to distinguish between the meaning of the data
+    // contained in the fields without having to worry that you may mix up
+    // the data in methods later:
+    //
+    struct Color(i32, i32, i32);
+    struct Point_3D(i32, i32, i32);
+
+    let black: Color = Color(0, 0, 0);
+    let origin: Point_3D = Point_3D(0, 0, 0);
+
+    // From a data standpoint, these two tuples appear to be identical.
+    // HOWEVER, you couldn't mix up an operation on a Color with an
+    // operation on a Point_3D, because Rust will see them as different
+    // types. Unless analogous methods are defined on both structs,
+    // you can't do with Color what you can do with Point.
+
+    let x: &i32 = &origin.0;
+    let g: &i32 = &black.1;
+
+
+    println!("The x coordinate of the origin is {}\nThe green saturation for black is {}", *x, *g);
 }
 
 fn user_factory_singleton(email: String, username: String) -> User {
