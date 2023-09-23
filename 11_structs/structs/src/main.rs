@@ -81,10 +81,27 @@ fn main() {
     // you can't do with Color what you can do with Point.
 
     let x: &i32 = &origin.0;
-    let g: &i32 = &black.1;
+    let r: &i32 = &black.0;
 
 
-    println!("The x coordinate of the origin is {}\nThe green saturation for black is {}", *x, *g);
+    println!("The x coordinate of the origin is {}\nThe red saturation for black is {}", *x, *r);
+
+    
+    /*
+    ***************************************************************************
+    *                  UNIT-LIKE STRUCTS WITHOUT ANY FIELDS                   *
+    ***************************************************************************
+     */
+
+    // You can define a struct without any fields. And they're called
+    // unit-like structs, because they behave like the unit type ().
+    // Unit-like structs are useful when you need to implement a trait on some
+    // type but don't have any data that you want to store in the type itself.
+    // Traits are discussed more in a later chapter.
+    //
+    struct AlwaysEqual;
+
+    let subject = AlwaysEqual;
 }
 
 fn user_factory_singleton(email: String, username: String) -> User {
