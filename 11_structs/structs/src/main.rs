@@ -19,6 +19,11 @@ impl Point3d {
 }
 
 fn main() {
+    /*
+     **************************************************************************
+     *                        THE BASICS OF STRUCTS                           *
+     **************************************************************************
+     */
     // Now we instantiate a struct
     let mut user1 = User {
         email: String::from("someuser@example.com"),
@@ -62,10 +67,53 @@ fn main() {
     give_user_details(&user1);
     give_user_details(&user4);
 
-    let mut origin_1: Point3d = Point3d(0, 0, 0);
-    origin_1.set_first(3);
 
-    println!("Origin x: {}", origin_1.get_first());
+    /*
+    ***************************************************************************
+    *          TUPLE STRUCTS WITHOUT NAMED FIELDS FOR NEW TYPES               *
+    ***************************************************************************
+     */
+
+    // A tuple struct have the added meaning of a struct name, but don't contain
+    // fields. We just give the types in the struct definition. Tuple structs
+    // are handy for being able to distinguish between the meaning of the data
+    // contained in the fields without having to worry that you may mix up
+    // the data in methods later:
+    //
+    struct Color(i32, i32, i32);
+    struct Point_3D(i32, i32, i32);
+
+    let black: Color = Color(0, 0, 0);
+    let origin: Point_3D = Point_3D(0, 0, 0);
+
+    // From a data standpoint, these two tuples appear to be identical.
+    // HOWEVER, you couldn't mix up an operation on a Color with an
+    // operation on a Point_3D, because Rust will see them as different
+    // types. Unless analogous methods are defined on both structs,
+    // you can't do with Color what you can do with Point.
+
+    let x: &i32 = &origin.0;
+    let r: &i32 = &black.0;
+
+
+    println!("The x coordinate of the origin is {}\nThe red saturation for black is {}", *x, *r);
+
+    
+    /*
+    ***************************************************************************
+    *                  UNIT-LIKE STRUCTS WITHOUT ANY FIELDS                   *
+    ***************************************************************************
+     */
+
+    // You can define a struct without any fields. And they're called
+    // unit-like structs, because they behave like the unit type ().
+    // Unit-like structs are useful when you need to implement a trait on some
+    // type but don't have any data that you want to store in the type itself.
+    // Traits are discussed more in a later chapter.
+    //
+    struct AlwaysEqual;
+
+    let subject = AlwaysEqual;
 }
 
 fn user_factory_singleton(email: String, username: String) -> User {
