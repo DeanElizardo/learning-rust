@@ -6,6 +6,18 @@ struct User {
     sign_in_count: u64,
 }
 
+struct Point3d(i32, i32, i32);
+
+impl Point3d {
+    fn get_first(&self) -> i32 {
+        self.0
+    }
+
+    fn set_first(&mut self, x: i32) {
+        self.0 = x;
+    }
+}
+
 fn main() {
     // Now we instantiate a struct
     let mut user1 = User {
@@ -49,6 +61,11 @@ fn main() {
 
     give_user_details(&user1);
     give_user_details(&user4);
+
+    let mut origin_1: Point3d = Point3d(0, 0, 0);
+    origin_1.set_first(3);
+
+    println!("Origin x: {}", origin_1.get_first());
 }
 
 fn user_factory_singleton(email: String, username: String) -> User {
